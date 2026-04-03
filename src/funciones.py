@@ -27,8 +27,14 @@ def actualizar_tabla(tabla, totales_ronda, ganador):
         
         tabla[ganador]['Ganadas'] +1
         
-def ordenar_tabla(tabla):
-    return sorted(tabla.items(), key = lambda x: x[1]['Total'], reverse = True)
-
-def calcular_promedio(datos):
-    return round(datos['Total'] / len(datos['Rondas']),1)
+def imprimir_tabla(tabla):
+    
+    ranking = sorted(tabla.items(), key = lambda x: x[1]['Total'],reverse=True)
+    
+    print("Tabla de posiciones final:")
+    print("Cocinero     Puntaje total       Rondas ganadas      Mejor ronda     Promedio")
+    print("-"*40)
+    
+    for cocinero, datos in ranking:
+        promedio = round(datos['Total'] / len(datos['Rondas']),1)
+        print(f"{cocinero:10}{datos['Total']:5}{datos['Ganadas']:5}{datos['Mejor']:6}{promedio}")
