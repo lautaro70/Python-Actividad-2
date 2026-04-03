@@ -10,7 +10,7 @@ def buscar_ganador(totales_ronda):
     return max(totales_ronda, key = totales_ronda.get)
 
 def actualizar_tabla(tabla, totales_ronda, ganador):
-    for cocinero, puntos in totales_ronda.items:
+    for cocinero, puntos in totales_ronda.items():
         if cocinero not in tabla:
             tabla[cocinero] = {
                 'Total': 0,
@@ -25,18 +25,19 @@ def actualizar_tabla(tabla, totales_ronda, ganador):
         if puntos > tabla[cocinero]['Mejor']:
             tabla[cocinero]['Mejor'] = puntos
         
-        tabla[ganador]['Ganadas'] +1
+        if cocinero == ganador:
+            tabla[cocinero]['Ganadas'] += 1
         
 def imprimir_tabla(tabla):
     
     ranking = sorted(tabla.items(), key = lambda x: x[1]['Total'],reverse=True)
     
     print("Tabla de posiciones:")
-    print("Cocinero     Puntaje total       Rondas ganadas      Mejor ronda     Promedio")
-    print("-"*40)
+    print(f"{'Cocinero':<12} {'Total':>6} {'Ganadas':>8} {'Mejor':>8} {'Promedio':>10}")
+    print("-"*60)
     
     for cocinero, datos in ranking:
         promedio = round(datos['Total'] / len(datos['Rondas']),1)
-        print(f"{cocinero:10}{datos['Total']:5}{datos['Ganadas']:5}{datos['Mejor']:6}{promedio}")
+        print(f"{cocinero:12} {datos['Total']:6} {datos['Ganadas']:8} {datos['Mejor']:10} {promedio:8}")
     
-    print("-"*40)
+    print("-"*60)
